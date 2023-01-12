@@ -1,23 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import { useGetAllPostQuery } from "./services/post";
 
 function App() {
+const {data,isLoading,isError,isSuccess,isFetching}  = useGetAllPostQuery();
+console.log(isFetching, "is fetching");
+console.log(isLoading,"is loading");
+console.log(data,"data");
+if (isFetching) {
+  return <h1>is fetching</h1>
+}
+ 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="">
+      {
+        data.map((singleProduct)=> (
+          <div key={singleProduct.id}>
+            {singleProduct.title}
+            <hr />
+          </div>
+        ))
+      }
     </div>
   );
 }
